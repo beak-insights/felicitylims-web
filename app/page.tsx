@@ -1,101 +1,177 @@
-import Image from "next/image";
+import { Linkedin, Mail, Send } from 'lucide-react'; // Import icons
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
+const Header = () => (
+  <header className="bg-white shadow">
+    <nav className="container mx-auto px-6 py-3 flex justify-between items-center">
+      <div className="text-xl font-bold text-gray-800">Felicity LIMS</div>
+      <div>
+        <a href="#features" className="text-gray-600 hover:text-gray-800 px-3 py-2">Features</a>
+        <a href="#about" className="text-gray-600 hover:text-gray-800 px-3 py-2">About</a>
+        <a href="#getting-started" className="text-gray-600 hover:text-gray-800 px-3 py-2">Getting Started</a>
+        <a href="#contact" className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md ml-4">Contact</a>
+      </div>
+    </nav>
+  </header>
+);
+
+const HeroSection = () => (
+  <section className="bg-blue-600 text-white py-20">
+    <div className="container mx-auto px-6 text-center">
+      <h1 className="text-4xl font-bold mb-4">Welcome to Felicity LIMS</h1>
+      <p className="text-xl mb-8">Open-source Laboratory Information Management System</p>
+      <a href="https://github.com/beak-insights/felicity-lims" className="bg-white text-blue-600 px-6 py-3 rounded-md font-semibold hover:bg-gray-100">
+        View on GitHub
+      </a>
+    </div>
+  </section>
+);
+
+const FeaturesSection = () => (
+  <section id="features" className="py-20">
+    <div className="container mx-auto px-6">
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Key Features</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <FeatureCard title="Sample Management" description="Efficiently track and manage laboratory samples throughout their lifecycle." />
+        <FeatureCard title="Workflow Automation" description="Streamline laboratory processes with customizable workflow automation." />
+        <FeatureCard title="Reporting & Analytics" description="Generate comprehensive reports and gain insights from your laboratory data." />
+      </div>
+    </div>
+  </section>
+);
+
+const FeatureCard = ({ title, description }) => (
+  <div className="bg-white rounded-lg shadow p-6">
+    <h3 className="text-xl font-semibold mb-4">{title}</h3>
+    <p className="text-gray-600">{description}</p>
+  </div>
+);
+
+const AboutSection = () => (
+  <section id="about" className="bg-gray-200 py-20">
+    <div className="container mx-auto px-6">
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">About Felicity LIMS</h2>
+      <p className="text-gray-600 text-center max-w-2xl mx-auto">
+        Felicity LIMS is an open-source Laboratory Information Management System designed to streamline laboratory operations, improve efficiency, and enhance data management in various scientific disciplines.
+      </p>
+    </div>
+  </section>
+);
+
+const GettingStartedSection = () => (
+  <section id="getting-started" className="py-20">
+    <div className="container mx-auto px-6">
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Getting Started</h2>
+      <div className="max-w-3xl mx-auto">
+        <h3 className="text-2xl font-semibold mb-4">Prerequisites</h3>
+        <ul className="list-disc list-inside mb-6">
+          <li>Python 3.10+</li>
+          <li>PostgreSQL 13+</li>
+          <li>Node.js 18+</li>
+        </ul>
+
+        <h3 className="text-2xl font-semibold mb-4">Installation</h3>
+        <ol className="list-decimal list-inside space-y-4">
+          <InstallationStep 
+            step="Clone the repository:"
+            code="git clone https://github.com/beak-insights/felicity-lims.git\ncd felicity-lims"
+          />
+          <InstallationStep 
+            step="Create a virtual environment and activate it:"
+            code="python -m venv venv\nsource venv/bin/activate  # On Windows, use `venv\Scripts\activate`"
+          />
+          <InstallationStep 
+            step="Install the required packages:"
+            code="pip install -r requirements.txt"
+          />
+          <InstallationStep 
+            step="Set up the database:"
+            code="createdb felicity_lims\nalembic upgrade head"
+          />
+          <InstallationStep 
+            step="Start the development server:"
+            code="uvicorn felicity.main:app --reload"
+          />
         </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
+        <p className="mt-6">
+          For more detailed instructions and configuration options, please refer to our <a href="https://github.com/beak-insights/felicity-lims/blob/main/README.md" className="text-blue-600 hover:underline">
+            full documentation
+          </a>.
+        </p>
+      </div>
+    </div>
+  </section>
+);
+
+const InstallationStep = ({ step, code }) => (
+  <li>
+    {step}
+    <pre className="bg-gray-100 p-2 rounded mt-2">{code}</pre>
+  </li>
+);
+
+const ContactSection = () => (
+  <section id="contact" className="py-20">
+    <div className="container mx-auto px-6">
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Get in Touch</h2>
+      <div className="max-w-lg mx-auto text-center">
+        <p className="text-gray-600 mb-6">
+          We'd love to hear from you! Feel free to reach out through any of the following channels:
+        </p>
+        <div className="flex flex-col items-center space-y-4">
+          <a 
+            href="https://www.linkedin.com/in/aurthurmusendame" 
+            target="_blank" 
             rel="noopener noreferrer"
+            className="flex items-center text-blue-600 hover:text-blue-800"
           >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
+            <Linkedin className="mr-2" size={24} />:
+            aurthurmusendame
           </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
+          <a 
+            href="https://t.me/aurthurm" 
+            target="_blank" 
             rel="noopener noreferrer"
+            className="flex items-center text-blue-600 hover:text-blue-800"
           >
-            Read our docs
+            <Send className="mr-2" size={24} />:
+            aurthurm
+          </a>
+          <a 
+            href="mailto:aurthurmusendame@gmail.com"
+            className="flex items-center text-blue-600 hover:text-blue-800"
+          >
+            <Mail className="mr-2" size={24} />:
+             aurthurmusendame@gmail.com
           </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+    </div>
+  </section>
+);
+
+const Footer = () => (
+  <footer className="bg-gray-800 text-white py-8">
+    <div className="container mx-auto px-6 text-center">
+      <p>&copy; 2024 Beak Insights. All rights reserved.</p>
+      <div className="mt-4">
+        <a href="https://github.com/beak-insights/felicity-lims" className="text-gray-400 hover:text-white mx-2">GitHub</a>
+        {/* <a href="#" className="text-gray-400 hover:text-white mx-2">Documentation</a>
+        <a href="#" className="text-gray-400 hover:text-white mx-2">Privacy Policy</a> */}
+      </div>
+    </div>
+  </footer>
+);
+export default function Home() {
+  return (
+    <div className="min-h-screen bg-gray-100">
+      <Header />
+      <HeroSection />
+      <FeaturesSection />
+      <AboutSection />
+      <GettingStartedSection />
+      <ContactSection />
+      <Footer />
     </div>
   );
 }
