@@ -39,7 +39,13 @@ const FeaturesSection = () => (
   </section>
 );
 
-const FeatureCard = ({ title, description }) => (
+
+type FeatureProps = {
+  title: string;
+  description: string;
+};
+
+const FeatureCard = ({ title, description }:FeatureProps) => (
   <div className="bg-white rounded-lg shadow p-6">
     <h3 className="text-xl font-semibold mb-4">{title}</h3>
     <p className="text-gray-600">{description}</p>
@@ -103,7 +109,12 @@ const GettingStartedSection = () => (
   </section>
 );
 
-const InstallationStep = ({ step, code }) => (
+type InstallationProps = {
+  step: string;
+  code: string;
+};
+
+const InstallationStep = ({ step, code }:InstallationProps) => (
   <li>
     {step}
     <pre className="bg-gray-100 p-2 rounded mt-2">{code}</pre>
