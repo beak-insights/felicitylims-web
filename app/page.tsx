@@ -1,3 +1,4 @@
+import React from 'react';
 import { Linkedin, Mail, Send } from 'lucide-react'; // Import icons
 
 const Header = () => (
@@ -66,36 +67,30 @@ const AboutSection = () => (
 const GettingStartedSection = () => (
   <section id="getting-started" className="py-20">
     <div className="container mx-auto px-6">
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Getting Started</h2>
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Prod deployment</h2>
       <div className="max-w-3xl mx-auto">
         <h3 className="text-2xl font-semibold mb-4">Prerequisites</h3>
         <ul className="list-disc list-inside mb-6">
-          <li>Python 3.10+</li>
-          <li>PostgreSQL 13+</li>
-          <li>Node.js 18+</li>
+          <li>Docker</li>
         </ul>
 
         <h3 className="text-2xl font-semibold mb-4">Installation</h3>
         <ol className="list-decimal list-inside space-y-4">
           <InstallationStep 
-            step="Clone the repository:"
-            code="git clone https://github.com/beak-insights/felicity-lims.git\ncd felicity-lims"
+            step="Download the production docker compose:"
+            code="curl -O https://raw.githubusercontent.com/beak-insights/felicity-lims/main/docker-compose.prod.yml\nmv docker-compose.prod.yml docker-compose.yml"
           />
           <InstallationStep 
-            step="Create a virtual environment and activate it:"
-            code="python -m venv venv\nsource venv/bin/activate  # On Windows, use `venv\Scripts\activate`"
+            step="Download example env and modify as needed:"
+            code="curl -O https://raw.githubusercontent.com/beak-insights/felicity-lims/main/env.example\nmv env.example .env"
           />
           <InstallationStep 
-            step="Install the required packages:"
-            code="pip install -r requirements.txt"
+            step="Run the production docker compose:"
+            code="docker compose up -d felicity-static-nginx"
           />
           <InstallationStep 
             step="Set up the database:"
-            code="createdb felicity_lims\nalembic upgrade head"
-          />
-          <InstallationStep 
-            step="Start the development server:"
-            code="uvicorn felicity.main:app --reload"
+            code="sudo docker compose  exec felicity-static-nginx sh -c 'felicity-lims upgrade'"
           />
         </ol>
 
@@ -114,12 +109,23 @@ type InstallationProps = {
   code: string;
 };
 
-const InstallationStep = ({ step, code }:InstallationProps) => (
-  <li>
-    {step}
-    <pre className="bg-gray-100 p-2 rounded mt-2">{code}</pre>
-  </li>
-);
+const InstallationStep = ({ step, code }:InstallationProps) => {
+  const codeLines = code.replace(/\\n/g, '\n').split('\n');
+  return (
+    <li>
+      {step}    
+      <pre className="bg-gray-50 p-2 rounded mt-2 text-wrap">
+        {codeLines.map((line, index) => (
+          <span key={index} className='mb-1 block'>
+            $ {line}
+            {/* Add a newline character after each line, except the last */}
+            {index < codeLines.length - 1 && <br />}
+          </span>
+        ))}
+      </pre>
+    </li>
+  );
+}
 
 const ContactSection = () => (
   <section id="contact" className="py-20">
