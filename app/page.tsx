@@ -78,7 +78,7 @@ const GettingStartedSection = () => (
         <ol className="list-decimal list-inside space-y-4">
           <InstallationStep 
             step="Download the production docker compose:"
-            code="curl -O https://raw.githubusercontent.com/beak-insights/felicity-lims/main/docker-compose.prod.yml\nmv docker-compose.prod.yml docker-compose.yml"
+            code="curl -O https://raw.githubusercontent.com/beak-insights/felicity-lims/main/docker-compose.yml"
           />
           <InstallationStep 
             step="Download example env and modify as needed:"
@@ -86,11 +86,11 @@ const GettingStartedSection = () => (
           />
           <InstallationStep 
             step="Run the production docker compose:"
-            code="docker compose up -d felicity-static-nginx"
+            code="docker compose up -d"
           />
           <InstallationStep 
             step="Set up the database:"
-            code="sudo docker compose  exec felicity-static-nginx sh -c 'felicity-lims upgrade'"
+            code="sudo docker compose exec felicity-api sh -c 'felicity-lims upgrade'"
           />
         </ol>
 
