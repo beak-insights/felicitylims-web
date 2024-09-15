@@ -85,18 +85,6 @@ const GettingStartedSection = () => (
             code="curl -O https://raw.githubusercontent.com/beak-insights/felicity-lims/main/env.example\nmv env.example .env"
           />
           <InstallationStep 
-            step="Download nginx template"
-            code="curl -O https://raw.githubusercontent.com/beak-insights/felicity-lims/main/services/nginx/static/default.conf.template"
-          />
-          <InstallationStep 
-            step="Setup nginx template"
-            code="mkdir nginx && mv default.conf.template nginx/"
-          />
-          <InstallationStep 
-            step="Modidy docker-compose.yml service felicity-static-nginx volume mapping to:"
-            code="- ./nginx/:/etc/nginx/templates/"
-          />
-          <InstallationStep 
             step="Run the production docker compose:"
             code="docker compose up -d"
           />
